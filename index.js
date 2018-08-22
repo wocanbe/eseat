@@ -1,11 +1,11 @@
 const chalk = require('chalk');
 const program = require('commander');
-const version = require('../package.json').version;
+const version = require('./package.json').version;
 
 program.version(version);
 
 program
-  .command('dev [input...]')
+  .command('dev')
   .description('starts a eseat server in dev mode')
   .option(
     '--hmr-port <port>',
@@ -19,7 +19,7 @@ program
   .action(eseat);
 
 program
-  .command('build [input...]')
+  .command('build')
   .description('bundles for production')
   .option('--cache-dir <path>', 'set the cache directory. defaults to ".cache"')
   .action(eseat);
@@ -58,16 +58,21 @@ if (!args[2] || !program.commands.some(c => c.name() === args[2])) {
 program.parse(args);
 
 async function eseat(main, command) {
-  // Require Eseat here so the help command is fast
-  const eseat = options.https ? require('./server/https') : require('./server/http')
-
+  console.log(command.name())
   if (command.name() === 'dev') {
     process.env.NODE_ENV = process.env.NODE_ENV || 'development';
   } else {
     command.production = true;
     process.env.NODE_ENV = process.env.NODE_ENV || 'production';
   }
-
   const config = require('../../config/')
-  await eseat(config[command.name()])
+  console.log(command.name(), config)
+  const options = config[command.name()]
+  const eseat = require('./server/http')
+  const result = await eseat(options)
+  if (result) {
+    console.log('eseat ready')
+  } else {
+    eseat.bundle()
+  }
 }
