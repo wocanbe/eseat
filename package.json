@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "main": "index.js",
   "license": "MIT",
-  "author": "liuying",
+  "author": "wocanbe@163.com",
   "bin": {
     "eseat": "bin/cli.js"
   },
@@ -11,12 +11,20 @@
     "@babel/parser": "^7.0.0-rc.2",
     "koa": "^2.5.2",
     "koa-bodyparser": "^4.2.1",
-    "koa-logger": "^3.2.0",
     "koa-router": "^7.4.0",
     "koa-static": "^5.0.0",
     "postcss": "^7.0.2"
   },
   "engines": {
     "node": ">= 8.0.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wocanbe/eseat.git"
+  },
+  "keywords": ["eseat"],
+  "bugs": {
+    "url": "https://github.com/wocanbe/eseat/issues"
+  },
+  "homepage": "https://github.com/wocanbe/eseat#readme"
 }
