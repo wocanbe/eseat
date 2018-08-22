@@ -1,14 +1,17 @@
 {
   "name": "eseat",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "index.js",
   "license": "MIT",
   "author": "wocanbe@163.com",
+  "description": "Web total solution.Support packs modules for browser.Support mock",
   "bin": {
     "eseat": "bin/cli.js"
   },
   "dependencies": {
     "@babel/parser": "^7.0.0-rc.2",
+    "chalk": "^2.1.0",
+    "commander": "^2.11.0",
     "koa": "^2.5.2",
     "koa-bodyparser": "^4.2.1",
     "koa-router": "^7.4.0",
@@ -22,7 +25,7 @@
     "type": "git",
     "url": "git+https://github.com/wocanbe/eseat.git"
   },
-  "keywords": ["eseat"],
+  "keywords": ["web package", "koa2"],
   "bugs": {
     "url": "https://github.com/wocanbe/eseat/issues"
   },
