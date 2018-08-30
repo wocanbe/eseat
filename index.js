@@ -25,7 +25,7 @@ program
   .action(eseat);
 
 program
-  .command('serve')
+  .command('server')
   .description('starts a eseat server')
   .option('--cache-dir <path>', 'set the cache directory. defaults to ".cache"')
   .action(eseat);
@@ -52,24 +52,22 @@ program.on('--help', function() {
 var args = process.argv;
 if (args[2] === '--help' || args[2] === '-h') args[2] = 'help';
 if (!args[2] || !program.commands.some(c => c.name() === args[2])) {
-  args.splice(2, 0, 'serve');
+  args.splice(2, 0, 'dev');
 }
 
 program.parse(args);
 
-async function eseat(main, command) {
-  console.log(command.name())
-  if (command.name() === 'dev') {
+async function eseat(options) {
+  const cmdType = options.name()
+  if (cmdType === 'dev') {
     process.env.NODE_ENV = process.env.NODE_ENV || 'development';
   } else {
-    command.production = true;
+    options.production = true;
     process.env.NODE_ENV = process.env.NODE_ENV || 'production';
   }
-  const config = require('../../config/')
-  console.log(command.name(), config)
-  const options = config[command.name()]
-  const eseat = require('./server/http')
-  const result = await eseat(options)
+  const config = require('../../config/index')[cmdType]
+  const eseat = config.isHttps ? require('./server/https') : require('./server/http')
+  const result = await eseat(config)
   if (result) {
     console.log('eseat ready')
   } else {

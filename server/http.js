@@ -1,15 +1,15 @@
 const http = require('http')
-const app = require('./app')
+const creatApp = require('./app')
 
 function httpServer (config) {
   return new Promise((resolve, reject) => {
-    const server = http.createServer(app.callback())
+    const server = http.createServer(creatApp(config).callback())
     server.on('error', (err) => {
       reject(err)
     })
     // listen(port, hostname, callback)
     server.listen(config.port, () => {
-      console.log('server start in port ' + config.port)
+      // console.log('server start in port ' + config.port)
       resolve(true)
     })
   }).catch(error => console.log('caught', error))
